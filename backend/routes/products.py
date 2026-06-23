@@ -4,6 +4,7 @@ Product management routes including addition, retrieval, updating, and deletion.
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from ..models import Product
 from ..database import products_collection
+from ..services.recommendation.recommendation_service import RecommendationService
 import base64
 from bson import ObjectId
 
@@ -208,6 +209,49 @@ def delete_product(id: str):
         raise HTTPException(status_code=404, detail="Product not found")
 
     return {"message": "Deleted successfully"}
+
+
+@router.get("/{id}/recommendations")
+def get_product_recommendations(id: str):
+    """
+    Get similar, cheaper, and premium recommendations for a specific product.
+    """
+    try:
+        product = products_collection.find_one({"_id": ObjectId(id)})
+    except:
+        raise HTTPException(status_code=400, detail="Invalid ID format")
+
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    product["id"] = str(product["_id"])
+    product.pop("_id", None)
+
+    similar = RecommendationService.get_recommendations(product, limit=4)
+    cheaper = RecommendationService.get_cheaper_alternatives(product, limit=4)
+    premium = RecommendationService.get_premium_alternatives(product, limit=4)
+
+    def format_recs(recs):
+        formatted = []
+        for r in recs:
+            p = r.product
+            # Ensure image is present for base64 uploads
+            if "image_data" in p and "image_content_type" in p and "image" not in p:
+                p["image"] = f"data:{p['image_content_type']};base64,{p['image_data']}"
+            p.pop("image_data", None)
+            p.pop("image_content_type", None)
+            
+            p["recommendation_reasons"] = r.reasons
+            p["similarity_score"] = r.score
+            formatted.append(p)
+        return formatted
+
+    return {
+        "similar": format_recs(similar),
+        "cheaper": format_recs(cheaper),
+        "premium": format_recs(premium)
+    }
+
 
 
 @router.put("/{id}")

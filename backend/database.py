@@ -23,3 +23,7 @@ orders_collection = db["orders"]
 cart_collection = db["cart"]
 
 
+print("=" * 50)
+print("MONGO_URI:", MONGO_URI)
+print("DATABASE:", db.name)
+print("=" * 50)
