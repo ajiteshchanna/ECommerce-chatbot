@@ -68,13 +68,23 @@ export async function deleteAllProducts() {
 
 /**
  * Send a message to the AI Chatbot and await its semantic response.
+ * session_id is required so each user has isolated memory context.
  */
-export async function sendChatMessage(message) {
+export async function sendChatMessage(message, sessionId = 'default_session') {
   const res = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ message, session_id: sessionId }),
   });
+  return await res.json();
+}
+
+/**
+ * Fetch similar, cheaper, and premium product recommendations for a given product ID.
+ * Calls GET /products/{id}/recommendations
+ */
+export async function fetchRecommendations(id) {
+  const res = await fetch(`${API_BASE}/products/${id}/recommendations`);
   return await res.json();
 }
 

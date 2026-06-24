@@ -1,138 +1,149 @@
 import { state } from '../services/state.js';
 import { getCart, placeOrder, clearCart, fetchProducts } from '../services/api_v2.js';
-import { renderHeader } from '../components/Header.js';
+import { renderHeader, setupHeaderEvents } from '../components/Header.js';
 
+/**
+ * Spidey Store Cart Page — UI-009
+ *
+ * PRESERVED: getCart, placeOrder, clearCart API calls
+ * PRESERVED: #clearCartBtn, #buyAllBtn element IDs
+ */
 export async function renderCart() {
   document.getElementById('app').innerHTML = `
     ${renderHeader()}
-    <div class="container" style="padding: 2rem 1rem; max-width: 800px; margin: 0 auto;">
-      <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">Your Cart</h1>
+    <main class="cart-page" style="animation: fadeInUp 0.5s ease both;">
+      <h1 class="cart-title">🛒 Your Cart</h1>
       <div id="cartContent">
-        <p>Loading cart...</p>
+        <div style="display:flex; align-items:center; justify-content:center; height:40vh; flex-direction:column; gap:16px;">
+          <div class="spider-loader"></div>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Loading your cart...</p>
+        </div>
       </div>
-    </div>
+    </main>
   `;
+
+  // FE-007: Wire header events (mobile nav) on Cart page
+  setupHeaderEvents();
 
   try {
     const rawCartItems = await getCart(state.sessionId);
-    
+
     // The cart only saves names/quantities, fetch products to display images/prices
-    const productsDB = await fetchProducts(); 
-    
+    const productsDB = await fetchProducts();
+
     // Map items to rich data
     const cartItems = rawCartItems.map(item => {
       const match = productsDB.find(p => p.name === item.product_name) || {};
       return {
         ...item,
         price: match.price || 0,
-        image: match.image || 'https://via.placeholder.com/100x100?text=Item',
+        image: match.image_rul || 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=200',
         description: match.description || 'No description available',
       };
     });
 
     const contentDiv = document.getElementById('cartContent');
-    
+
     if (!cartItems.length) {
       contentDiv.innerHTML = `
-        <div style="text-align: center; padding: 3rem; background: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
-          <h2 style="font-size: 1.5rem; color: #4B5563; margin-bottom: 1rem;">Your cart is empty!</h2>
-          <a href="#/" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Continue Shopping</a>
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🕷️</div>
+          <h2 class="cart-empty-title">Your web-cart is empty!</h2>
+          <p style="color:var(--text-muted); margin-bottom:32px; font-size:0.9rem;">Even Spidey needs to shop. Start swinging!</p>
+          <a href="#/" class="btn btn-spider" style="text-decoration:none; display:inline-flex;">🛍️ Start Shopping</a>
         </div>
       `;
       state.cartItemCount = 0;
-      setTimeout(() => renderHeader(), 100); // re-patch header if needed
       return;
     }
 
     const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    state.cartItemCount = cartItems.length; // sync state
+    state.cartItemCount = cartItems.length;
 
     contentDiv.innerHTML = `
-      <div style="background: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem;">
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          ${cartItems.map(item => `
-            <div style="display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
-              <img src="${item.image}" alt="${item.product_name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem;" />
-              <div style="flex: 1;">
-                <h3 style="font-weight: bold; font-size: 1.1rem; color: #111827;">${item.product_name}</h3>
-                <p style="color: #6B7280; font-size: 0.9rem;">Qty: ${item.quantity}</p>
-              </div>
-              <div style="font-weight: bold; font-size: 1.1rem;">₹${item.price}</div>
+      <div class="cart-items-list">
+        ${cartItems.map((item, i) => `
+          <div class="cart-item" style="animation-delay: ${i * 0.08}s;">
+            <img src="${item.image_rul}" alt="${item.product_name}" />
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.product_name}</div>
+              <div class="cart-item-qty">Quantity: ${item.quantity}</div>
+              ${item.description !== 'No description available' ? `<div style="font-size:0.78rem; color:var(--text-subtle); margin-top:4px; line-clamp:1; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;">${item.description}</div>` : ''}
             </div>
-          `).join('')}
+            <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-total-row">
+          <div>
+            <div class="cart-total-label">Total Due</div>
+            <div style="font-size:0.78rem; color:var(--text-subtle);">${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} · Free delivery included</div>
+          </div>
+          <div class="cart-total-value">₹${total.toLocaleString('en-IN')}</div>
         </div>
-        
-        <div style="margin-top: 2rem; border-top: 2px dashed #E5E7EB; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
-          <h2 style="font-size: 1.5rem; font-weight: bold;">Total Due:</h2>
-          <span style="font-size: 1.5rem; font-weight: bold; color: #111827;">₹${total}</span>
-        </div>
-        
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-          <a href="#/" class="btn btn-outline" style="flex: 1; text-align: center; text-decoration: none;">Keep Shopping</a>
-          <button id="clearCartBtn" class="btn btn-outline" style="flex: 1; color: #DC2626; border-color: #DC2626; font-size: 1.1rem;">Clear Cart 🗑️</button>
-          <button id="buyAllBtn" class="btn btn-primary" style="flex: 2; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-            <span>Buy All Now</span>
-            <span>🚀</span>
-          </button>
+
+        <div class="cart-actions">
+          <a href="#/" class="btn btn-ghost" style="text-decoration:none; flex:1; min-width:120px; text-align:center;">← Keep Shopping</a>
+          <button id="clearCartBtn" class="btn btn-danger" style="flex:1; min-width:120px;">🗑️ Clear Cart</button>
+          <button id="buyAllBtn" class="btn btn-spider" style="flex:2; min-width:160px;">⚡ Buy All Now</button>
         </div>
       </div>
     `;
 
     document.getElementById('clearCartBtn')?.addEventListener('click', async (e) => {
       if (!confirm('Are you sure you want to clear your cart?')) return;
-      
+
       const btn = e.target.closest('button');
       btn.disabled = true;
-      btn.innerHTML = 'Clearing... ⏳';
-      
+      btn.innerHTML = '⏳ Clearing...';
+
       try {
         await clearCart(state.sessionId);
         state.cartItemCount = 0;
-        
-        // Re-render the cart right away
         renderCart();
       } catch (err) {
         alert('Failed to clear cart.');
         btn.disabled = false;
-        btn.innerHTML = 'Clear Cart 🗑️';
+        btn.innerHTML = '🗑️ Clear Cart';
       }
     });
 
     document.getElementById('buyAllBtn')?.addEventListener('click', async (e) => {
       const btn = e.target.closest('button');
       btn.disabled = true;
-      btn.innerHTML = `<span>Processing... ⏳</span>`;
-      
+      btn.innerHTML = `⏳ Processing...`;
+
       try {
-        // Place individual orders for every item in the cart
         const promises = cartItems.map(item => placeOrder(state.sessionId, item.product_name, item.quantity));
         await Promise.all(promises);
-        
-        // Wipe the cart
+
         await clearCart(state.sessionId);
-        
-        // Reset state
         state.cartItemCount = 0;
-        
-        btn.innerHTML = `<span>Order Successful! 🎉</span>`;
-        btn.style.backgroundColor = '#16a34a'; // tailwind green-600
-        btn.style.color = 'white';
-        
+
+        btn.innerHTML = `🎉 Order Successful!`;
+        btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        btn.style.boxShadow = '0 0 20px rgba(34,197,94,0.4)';
+
         setTimeout(() => {
           window.location.hash = '#/';
         }, 2000);
-        
+
       } catch(err) {
         alert('Failed to process bulk order.');
         btn.disabled = false;
-        btn.innerHTML = `<span>Buy All Now 🚀</span>`;
+        btn.innerHTML = `⚡ Buy All Now`;
       }
     });
 
   } catch(err) {
     document.getElementById('cartContent').innerHTML = `
-      <div style="color: red; text-align: center; padding: 2rem;">Error loading cart. Please try again.</div>
+      <div style="text-align:center; padding:80px 20px;">
+        <div style="font-size:3rem; margin-bottom:16px;">⚠️</div>
+        <h3 style="color:var(--text-primary); margin-bottom:8px;">Error loading cart</h3>
+        <p style="color:var(--text-muted);">Please refresh and try again.</p>
+      </div>
     `;
   }
 }

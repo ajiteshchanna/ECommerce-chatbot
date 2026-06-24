@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from backend.routes import products, orders, cart, chatbot
 import os
@@ -8,6 +9,11 @@ import logfire
 # Initialize FastAPI app
 app = FastAPI()
 
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads"
+)
 
 # Configure Logfire for Observability
 logfire.configure(send_to_logfire='if-token-present')

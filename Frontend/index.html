@@ -2,16 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LUXE - E-Commerce Store</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png" />
+    <title>Spidey Store — AI Fashion Assistant</title>
+    <meta name="description" content="Spidey Store: Your AI-powered fashion destination. Chat with Spidey, discover trending styles, and shop the best in men's, women's & kids' fashion." />
+    <meta name="keywords" content="fashion, shopping, AI assistant, Spider-Man, clothing, style" />
+    <meta name="theme-color" content="#E63329" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Spidey Store — AI Fashion Assistant" />
+    <meta property="og:description" content="Shop with your AI fashion companion. Discover personalized styles powered by Spider-Man intelligence." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/uploads/og-spidey.png" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png" />
-    <link rel="stylesheet" href="/src/style.css">
+    <meta name="twitter:title" content="Spidey Store — AI Fashion Assistant" />
+    <meta name="twitter:description" content="Shop with your AI fashion companion powered by Spider-Man intelligence." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕷️</text></svg>" />
+
+    <!-- Google Fonts: Outfit + Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <!-- Ambient Background Orbs (fixed behind everything) -->
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+
+    <!-- App Mount Point -->
     <div id="app"></div>
+
+    <!-- Main JS Entry -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
