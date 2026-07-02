@@ -168,19 +168,7 @@ function setupHomeEvents() {
     el.addEventListener('click', () => navigate(`#/product/${el.dataset.id}`));
   });
 
-  // FE-007: Wire quick-action chips (moved from dead Chatbot.js <script> block)
-  document.querySelectorAll('.chat-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const input  = document.getElementById('chatInput');
-      const sendBtn = document.getElementById('chatSend');
-      if (input && sendBtn) {
-        input.value = chip.dataset.chipMsg || '';
-        sendBtn.click();
-      }
-    });
-  });
-
-  // FE-007: Auto-scroll chat to bottom (moved from dead Chatbot.js <script> block)
+  // FE-007: Auto-scroll chat to bottom
   const msgs = document.getElementById('chatMessages');
   if (msgs) msgs.scrollTop = msgs.scrollHeight;
 }

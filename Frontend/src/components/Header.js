@@ -96,7 +96,6 @@ export function renderHeader() {
         <button class="nav-link ${currentCategory === 'men' ? 'active' : ''}" onclick="handleCatClick('men')" id="navMen">Men</button>
         <button class="nav-link ${currentCategory === 'women' ? 'active' : ''}" onclick="handleCatClick('women')" id="navWomen">Women</button>
         <button class="nav-link ${currentCategory === 'kids' ? 'active' : ''}" onclick="handleCatClick('kids')" id="navKids">Kids</button>
-        <button class="nav-link" onclick="handleCatClick('')" id="navTrending">Trending 🔥</button>
         <button class="nav-link" onclick="window.spideyChat && window.spideyChat()" id="navAiStylist">
           AI Stylist
           <span class="nav-badge">NEW</span>
@@ -113,18 +112,6 @@ export function renderHeader() {
 
       <!-- Header Right Actions -->
       <div class="header-right">
-        <!-- Admin Link (hidden on very small screens) -->
-        <a href="#/add-products" class="btn btn-ghost btn-pill header-admin-link" style="font-size: 0.78rem; padding: 6px 12px;" title="Add Products">
-          ⚙️ Admin
-        </a>
-
-        <!-- Wishlist -->
-        <button class="icon-btn" aria-label="Wishlist" id="wishlistBtn" title="Wishlist">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-        </button>
-
         <!-- Cart -->
         <button class="icon-btn relative" id="cartBtn" onclick="window.location.hash='#/cart'" aria-label="Shopping cart" title="Cart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -176,9 +163,7 @@ export function renderHeader() {
       <button class="mobile-nav-link ${currentCategory === 'men' ? 'active' : ''}" onclick="handleCatClick('men'); window.closeMobileNav && window.closeMobileNav()">👔 Men</button>
       <button class="mobile-nav-link ${currentCategory === 'women' ? 'active' : ''}" onclick="handleCatClick('women'); window.closeMobileNav && window.closeMobileNav()">👗 Women</button>
       <button class="mobile-nav-link ${currentCategory === 'kids' ? 'active' : ''}" onclick="handleCatClick('kids'); window.closeMobileNav && window.closeMobileNav()">🧒 Kids</button>
-      <button class="mobile-nav-link" onclick="handleCatClick(''); window.closeMobileNav && window.closeMobileNav()">🔥 Trending</button>
       <button class="mobile-nav-link" onclick="window.location.hash='#/cart'; window.closeMobileNav && window.closeMobileNav()">🛒 Cart ${cartItemCount > 0 ? `(${cartItemCount})` : ''}</button>
-      <a href="#/add-products" class="mobile-nav-link" onclick="window.closeMobileNav && window.closeMobileNav()">⚙️ Admin</a>
     </div>
   </nav>
 

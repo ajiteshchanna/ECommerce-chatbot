@@ -18,6 +18,5 @@ class ConversationContext(BaseModel):
     sort_order: Optional[int] = 1
 
     # Product Context Memory
-    last_viewed_product: Optional[str] = None
     last_recommended_product: Optional[str] = None
     last_searched_product: Optional[str] = None

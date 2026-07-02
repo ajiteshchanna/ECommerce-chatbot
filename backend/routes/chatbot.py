@@ -76,7 +76,7 @@ agent = Agent(
 @agent.system_prompt
 def add_memory_context(ctx: RunContext[StoreDeps]) -> str:
     mem = MemoryManager.get_context(ctx.deps.session_id)
-    return f"\n--- CURRENT SHOPPING CONTEXT ---\n{mem.model_dump_json(indent=2)}\n--------------------------------\nUse this context to understand missing parameters (e.g. if user just says 'under 1000', apply that to the existing category/subcategory)."
+    return f"\nShopping context: {mem.model_dump_json()}\nInherit any non-None fields when the user omits them."
 
 
 @agent.tool
@@ -216,7 +216,6 @@ async def chat_bot(data: dict = Body(...)):
                 "type": "products",
                 "message": text_reply,
                 "data": deps.found_products,
-                "debug_context": MemoryManager.get_context(session_id).model_dump()
             }
 
         # Otherwise just a normal conversation reply
@@ -224,7 +223,6 @@ async def chat_bot(data: dict = Body(...)):
             "type": "text",
             "message": text_reply,
             "data": None,
-            "debug_context": MemoryManager.get_context(session_id).model_dump()
         }
 
     except Exception as e:

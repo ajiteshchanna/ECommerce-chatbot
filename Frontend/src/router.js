@@ -1,5 +1,4 @@
 import { renderHome } from './pages/Home.js';
-import { renderAdmin } from './pages/Admin.js';
 import { renderProductDetail } from './pages/ProductDetail.js';
 import { renderCart } from './pages/Cart.js';
 
@@ -11,9 +10,7 @@ export function router() {
   const hash = window.location.hash || '#/';
   const path = hash.slice(1);
   
-  if (path === '/add-products' || path === '/admin') {
-    renderAdmin();
-  } else if (path === '/cart') {
+  if (path === '/cart') {
     renderCart();
   } else if (path.startsWith('/product/')) {
     const id = path.split('/')[2];

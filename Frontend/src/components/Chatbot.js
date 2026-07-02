@@ -85,14 +85,6 @@ export function renderChatbot() {
         <button class="chat-close-btn" id="chatCloseBtn" onclick="document.getElementById('chatToggle').click()" aria-label="Close chat">✕</button>
       </div>
 
-      <!-- Quick Action Chips (UI-013) -->
-      <div class="chat-quick-chips" role="group" aria-label="Quick actions">
-        <button class="chat-chip" data-chip-msg="Show me trending fashion" aria-label="Trending">🔥 Trending</button>
-        <button class="chat-chip" data-chip-msg="Show me spider-man style clothing" aria-label="Spider Style">🕷️ Spider-Style</button>
-        <button class="chat-chip" data-chip-msg="Recommend something just for me" aria-label="For You">🎯 For You</button>
-        <button class="chat-chip" data-chip-msg="What are the new arrivals?" aria-label="New Arrivals">✨ New Arrivals</button>
-      </div>
-
       <!-- Messages Area (UI-012) -->
       <div class="chatbot-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages">
 

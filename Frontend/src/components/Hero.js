@@ -56,7 +56,7 @@ export function renderHero() {
             🛍️ Shop Now
           </button>
           <button class="btn btn-ghost" onclick="document.getElementById('chatToggle')?.click()" id="heroAIBtn">
-            🤖 Ask Spidey AI
+            🕸️ Ask Spidey AI
           </button>
         </div>
 
@@ -82,7 +82,7 @@ export function renderHero() {
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-visual-card">
           <img
-            src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/uploads/spidy_card.jpg"
             alt="Fashion collection"
             loading="eager"
           />
@@ -98,11 +98,9 @@ export function renderHero() {
         </div>
 
         <!-- Floating badges -->
-        <div style="position: absolute; top: 20px; left: -20px; background: var(--gradient-spider); color: white; padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 700; box-shadow: var(--shadow-glow-red-sm); animation: fadeInUp 0.8s ease 0.5s both;">
-          🔥 Trending Now
-        </div>
-        <div style="position: absolute; bottom: 120px; right: -16px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); color: #22c55e; padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 700; backdrop-filter: blur(8px); animation: fadeInUp 0.8s ease 0.7s both;">
-          ✅ AI Curated
+        
+        <div style="position: absolute; bottom: 120px; right: -16px; background: rgba(255, 92, 92, 0.15); border: 1px solid rgba(197, 34, 34, 0.4); color: #f81212; padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 700; backdrop-filter: blur(8px); animation: fadeInUp 0.8s ease 0.7s both;">
+          ⚪ AI Curated
         </div>
       </div>
 

@@ -21,34 +21,4 @@ export const state = {
   priceFilter: { min: null, max: null },  // price range filter
   products: [],
   productList: [],
-  
-  // State for admin
-  isEditing: false,
-  editId: null,
-  adminForm: {
-    name: '',
-    description: '',
-    price: 0,
-    category: 'men',
-    image: '',
-    size: [],
-    color: []
-  },
-  imageFile: null
 };
-
-
-export function resetAdminForm() {
-  state.isEditing = false;
-  state.editId = null;
-  state.imageFile = null;
-  state.adminForm = {
-    name: '',
-    description: '',
-    price: 0,
-    category: 'men',
-    image: '',
-    size: [],
-    color: []
-  };
-}

@@ -358,14 +358,15 @@ input, textarea, select {
 
 /* Ghost / Outline Button */
 .btn-ghost {
-  background: var(--glass-bg-mid);
+  background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--glass-border-bright);
+  border: 1px solid var(--spider-red);
   backdrop-filter: blur(8px);
 }
 .btn-ghost:hover {
-  background: var(--glass-bg-strong);
+  background: black;
   border-color: var(--spider-red);
+  color: var(--spider-red);
   box-shadow: var(--shadow-glow-red-sm);
   transform: translateY(-1px);
 }
@@ -1406,42 +1407,6 @@ input, textarea, select {
 }
 .chat-close-btn:hover { background: rgba(230,51,41,0.3); color: white; }
 
-/* Quick Action Chips */
-.chat-quick-chips {
-  display: flex;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--glass-border);
-  overflow-x: auto;
-  scrollbar-width: none;
-  flex-shrink: 0;
-  background: rgba(0,0,0,0.2);
-}
-.chat-quick-chips::-webkit-scrollbar { display: none; }
-
-.chat-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
-  font-size: 0.72rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all var(--transition-base);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.75);
-  font-family: var(--font-primary);
-}
-
-.chat-chip:hover {
-  background: rgba(230,51,41,0.2);
-  border-color: rgba(230,51,41,0.4);
-  color: white;
-}
 
 /* Chat Messages Area */
 .chatbot-messages {
