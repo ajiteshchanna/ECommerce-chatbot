@@ -94,42 +94,42 @@ graph TD
 .
 ├── backend/                    # Python Backend Source
 │   ├── models/                 # Pydantic data schemas
-│   │   ├── [conversation_context.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/models/conversation_context.py)
-│   │   ├── [recommendation.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/models/recommendation.py)
-│   │   └── [search_filters.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/models/search_filters.py)
+│   │   ├── conversation_context.py
+│   │   ├── recommendation.py
+│   │   └── search_filters.py
 │   ├── routes/                 # FastAPI controllers
-│   │   ├── [cart.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/routes/cart.py)             # Cart add / retrieve operations
-│   │   ├── [chatbot.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/routes/chatbot.py)          # AI agent setup & chat endpoints
-│   │   ├── [orders.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/routes/orders.py)           # Order submission endpoint
-│   │   └── [products.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/routes/products.py)         # Inventory CRUD & seeder endpoints
+│   │   ├── cart.py             # Cart add / retrieve operations
+│   │   ├── chatbot.py          # AI agent setup & chat endpoints
+│   │   ├── orders.py           # Order submission endpoint
+│   │   └── products.py         # Inventory CRUD & seeder endpoints
 │   ├── services/               # Core business logic
 │   │   ├── memory/             # Multi-turn context & state merger
-│   │   │   ├── [context_merger.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/memory/context_merger.py)
-│   │   │   └── [memory_manager.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/memory/memory_manager.py)
+│   │   │   ├── context_merger.py
+│   │   │   └── memory_manager.py
 │   │   ├── recommendation/     # Similarity scoring engine
-│   │   │   ├── [recommendation_service.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/recommendation/recommendation_service.py)
-│   │   │   └── [scorer.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/recommendation/scorer.py)
-│   │   ├── [normalizer.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/normalizer.py)       # Entity & query normalizer
-│   │   ├── [product_search.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/product_search.py)   # Database query executor
-│   │   └── [query_builder.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/services/query_builder.py)    # MongoDB syntax constructor
-│   └── [database.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/backend/database.py)             # MongoDB connection configuration
+│   │   │   ├── recommendation_service.py
+│   │   │   └── scorer.py
+│   │   ├── normalizer.py       # Entity & query normalizer
+│   │   ├── product_search.py   # Database query executor
+│   │   └── query_builder.py    # MongoDB syntax constructor
+│   └── database.py             # MongoDB connection configuration
 ├── docs/                       # Technical design documents
-│   ├── [00-terminologies.md](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/docs/00-terminologies.md)       # Analogies for core components
-│   ├── [structured_retrieval.md](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/docs/structured_retrieval.md)   # Deep dive on parsing pipelines
-│   └── [multi_turn_memory.md](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/docs/multi_turn_memory.md)      # Context lifecycles
+│   ├── 00-terminologies.md       # Analogies for core components
+│   ├── structured_retrieval.md   # Deep dive on parsing pipelines
+│   └── multi_turn_memory.md      # Context lifecycles
 ├── Frontend/                   # Browser UI assets
 │   ├── src/
 │   │   ├── components/         # Modular layout units
 │   │   ├── images/             # UI icons and graphic assets
 │   │   ├── services/           # Chat & product API clients
-│   │   ├── [main.js](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/Frontend/src/main.js)             # Main SPA entrypoint
-│   │   ├── [router.js](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/Frontend/src/router.js)           # Frontend route controller
-│   │   └── [style.css](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/Frontend/src/style.css)           # Spider-Man & macOS stylesheet
-│   └── [index.html](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/Frontend/index.html)              # Main HTML entrypoint
-├── [Dockerfile](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/Dockerfile)                  # Application deployment config
-├── [main.py](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/main.py)                     # Entry point (fastapi uvicorn server)
-├── [requirements.txt](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/requirements.txt)            # System dependencies
-└── [README.md](file:///d:/ENGINEER/ECOMCHATBOT/RESOURCES/SOURCE_CODE/README.md)                   # Project documentation
+│   │   ├── main.js             # Main SPA entrypoint
+│   │   ├── router.js           # Frontend route controller
+│   │   └── style.css           # Spider-Man & macOS stylesheet
+│   └── index.html              # Main HTML entrypoint
+├── Dockerfile                  # Application deployment config
+├── main.py                     # Entry point (fastapi uvicorn server)
+├── requirements.txt            # System dependencies
+└── README.md                   # Project documentation
 ```
 
 ---
